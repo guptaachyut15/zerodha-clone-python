@@ -1,24 +1,5 @@
-# TODO:mongodb to be attached
 from pymongo import MongoClient
 from datetime import datetime
-
-users = [
-    {
-        "user_id": "1",
-        "balance": {
-            "GOOGLE": 5,
-            "TESLA": 2,
-            "INR": 10000,
-        },
-    },
-    {
-        "user_id": "2",
-        "balance": {
-            "TESLA": 5,
-            "INR": 5000,
-        },
-    },
-]
 
 order_book = {
     "GOOGLE": {
