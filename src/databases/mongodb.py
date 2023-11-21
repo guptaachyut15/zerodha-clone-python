@@ -1,5 +1,6 @@
 from pymongo import MongoClient
 from datetime import datetime
+from src.utils.config import MONGODB_CONNECTION_STRING
 
 order_book = {
     "GOOGLE": {
@@ -15,7 +16,7 @@ class MongoDB:
 
     def __init__(self) -> None:
         if not self.client:
-            self.client = MongoClient("mongodb://localhost:27017/")
+            self.client = MongoClient(MONGODB_CONNECTION_STRING)
         self.db_kite = self.client["kite-clone"]
 
     def upsert_document(self, collection, data):

@@ -1,6 +1,8 @@
 from bson.objectid import ObjectId
 from src.databases.mongodb import order_book, MongoDB
 from src.constants.collections import Collections
+from src.utils.logger import LOG
+
 
 mongo_db = MongoDB()
 
@@ -25,7 +27,7 @@ def have_stocks(user_id, quantity, stock):
 def add_to_order_book(type, stock_name, quantity, price, user_id):
     order_details = {"user_id": user_id, "quantity": quantity, "price": price}
     order_book[stock_name][type].append(order_details)
-    print(f"A {type} order for {stock_name} has been added to the orderbook")
+    LOG.info(f"A {type} order for {stock_name} has been added to the orderbook")
 
 
 def settle_balances(seller_id, buyer_id, stock_name, quantity, matched_price):

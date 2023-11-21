@@ -9,6 +9,7 @@ from src.utils.helpers import (
     have_stocks,
 )
 from src.databases.mongodb import order_book
+from src.utils.logger import LOG
 
 router = APIRouter()
 
@@ -49,12 +50,12 @@ def make_limit_order(body: InitiateLimitOrder):
             order_book[stockName] = {"Sell": [], "Buy": []}
 
         stockOrders = order_book[stockName]
-        print(stockOrders)
+        LOG.info(stockOrders)
 
         stockQuantity = data["quantity"]
 
         if data["type"] == "Buy":
-            print("Recieved a buy order")
+            LOG.info("Recieved a buy order")
             # sorting sell orders in ascending order
             availableSellOrders = sorted(stockOrders["Sell"], key=lambda x: x["price"])
             while stockQuantity:
@@ -63,7 +64,7 @@ def make_limit_order(body: InitiateLimitOrder):
                     and data["price"] >= availableSellOrders[0]["price"]
                 ):
                     matchedEntry = availableSellOrders[0]
-                    print("Found one matching entry in sell orders", matchedEntry)
+                    LOG.info("Found one matching entry in sell orders", matchedEntry)
                     settle_balances(
                         matchedEntry["user_id"],
                         data["user_id"],
@@ -79,16 +80,16 @@ def make_limit_order(body: InitiateLimitOrder):
                         matchedEntry["quantity"] -= stockQuantity
                         stockQuantity = 0
 
-                    print(
+                    LOG.info(
                         f"Bought {data['quantity'] - stockQuantity} at a price of {matchedEntry['price']} per share"
                     )
                 else:
-                    print("No more matching records in sell order book")
+                    LOG.info("No more matching records in sell order book")
                     break
             stockOrders["Sell"] = availableSellOrders
 
         elif data["type"] == "Sell":
-            print("Recieved a sell order")
+            LOG.info("Recieved a sell order")
             # sorting buy orders in descending order
             availableBuyOrders = sorted(
                 stockOrders["Buy"], key=lambda x: x["price"], reverse=True
@@ -100,7 +101,7 @@ def make_limit_order(body: InitiateLimitOrder):
                     and availableBuyOrders[0]["price"] >= data["price"]
                 ):
                     matchedEntry = availableBuyOrders[0]
-                    print("Found one matching entry in buy orders", matchedEntry)
+                    LOG.info("Found one matching entry in buy orders", matchedEntry)
                     settle_balances(
                         data["user_id"],
                         matchedEntry["user_id"],
@@ -116,11 +117,11 @@ def make_limit_order(body: InitiateLimitOrder):
                         matchedEntry["quantity"] -= stockQuantity
                         stockQuantity = 0
 
-                    print(
+                    LOG.info(
                         f"Sold {data['quantity'] - stockQuantity} at a price of {data['price']} per share"
                     )
                 else:
-                    print("No more matching records in buy order book")
+                    LOG.info("No more matching records in buy order book")
                     break
             stockOrders["Buy"] = availableBuyOrders
 
@@ -145,5 +146,5 @@ def make_limit_order(body: InitiateLimitOrder):
             )
 
     except Exception as err:
-        print("Failed due to error", err)
+        LOG.error("Failed due to error", err)
         return HTTPException({"status": "failed", "message": "Processing failed"})
