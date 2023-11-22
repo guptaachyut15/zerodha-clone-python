@@ -1,19 +1,67 @@
-# zerodha-clone-python
-Started of as a zerodha limit order clone, This clone now supports following backend features:
-1. Signup and login by using a username and access_token
-  a. Access_tokens and usernnames are stored as sha256 strings for security
-2. (Authorisation and authentication)On successful login a jwt token is generated (valid for 30 min for now) which can be used to trigger various requests
-   a. The jwt token for the production will be handled by firbase or some similar thing which will remove the 30min mark for the validity and then the function of jwt token will be to validate the requests from the client(authorisation)
-4. Users data related to INR and stock details are stored in a mongodb collection named Users
-5. The order book is an in memory(for now) store and stores information regarding the open orders if any
-6. A user can trigger a limit order(either buy or sell) for a particular stock and that will be executed if it can or else it will be added in the orderbook waiting to get triggered
-7. A user can access the orderbook
-8. Users can view their balance and the stocks they own
+# Zerodha Clone in Python
 
-## How to run
+This project initially began as a clone of Zerodha's limit order system, and has since evolved to include several backend features for a simplified stock trading platform.
 
-python3 -m venv venv
+## Features
 
-venv\Scripts\activate
+1. **User Authentication**
+   - Users can sign up and log in using a username and access_token.
+   - Access_tokens and usernames are securely stored as sha256 strings.
+   
+2. **Authorization and Authentication**
+   - Upon successful login, a JWT token is generated (valid for 30 minutes initially).
+   - The JWT token for production will be managed by Firebase or a similar service, eliminating the 30-minute validity limit. The primary purpose of the token will be to validate client requests (authorization).
 
-uvicorn src.main:app --reload --port 8080
+3. **User Data Management**
+   - User data, including INR and stock details, is stored in a MongoDB collection named "Users."
+   
+4. **Order Book**
+   - The order book is currently an in-memory store, containing information about open orders.
+   
+5. **Limit Orders**
+   - Users can trigger limit orders (buy or sell) for specific stocks.
+   - If executable, the order is processed; otherwise, it is added to the order book for future execution.
+
+6. **Order Book Access**
+   - Users have access to view the order book, which contains information about pending and executed orders.
+
+7. **Balance and Portfolio**
+   - Users can view their account balance and the stocks they currently own.
+
+## How to Run
+
+1. **Create a Virtual Environment:**
+
+    ```bash
+    python3 -m venv venv
+    ```
+
+2. **Activate the Virtual Environment:**
+
+   - On Windows:
+
+     ```bash
+     venv\Scripts\activate
+     ```
+
+   - On macOS/Linux:
+
+     ```bash
+     source venv/bin/activate
+     ```
+
+3. **Install Dependencies:**
+
+   ```bash
+   pip install -r requirements.txt
+
+4. **Run the application:**
+   -Using Uvicorn
+    ```bash
+    uvicorn src.main:app --reload --port 8080
+    ```
+The application should now be running locally. Access it through your web browser at http://localhost:8080.
+
+
+Feel free to explore, contribute, or provide feedback!
+
