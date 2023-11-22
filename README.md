@@ -30,7 +30,7 @@ This project initially began as a clone of Zerodha's limit order system, and has
 ## APIs and Processes
 ### Signup
 
-**Endpoint:** `POST /signup`
+**Endpoint:** `POST auth/signup`
 
 **Description:** This API allows users to sign up for the Zerodha Clone platform.
 
