@@ -1,6 +1,6 @@
 # Zerodha Clone in Python
 
-This project initially began as a clone of Zerodha's limit order system, and has since evolved to include several backend features for a simplified stock trading platform.
+This project initially began as a clone of Zerodha's limit order system, and has since evolved to include several backend features for a simplified mock stock trading platform.
 
 ## Features
 
