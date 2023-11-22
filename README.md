@@ -27,6 +27,26 @@ This project initially began as a clone of Zerodha's limit order system, and has
 
 7. **Balance and Portfolio**
    - Users can view their account balance and the stocks they currently own.
+## APIs and Processes
+### Signup
+
+**Endpoint:** `POST /signup`
+
+**Description:** This API allows users to sign up for the Zerodha Clone platform.
+
+**Request Body:**
+```json
+{
+  "username": "your_username",
+  "access_token": "your_access_token",
+  "balance": "dict containing details about INR and mock stocks"
+}
+```
+![image](https://github.com/guptaachyut15/zerodha-clone-python/assets/108484224/8c17a27c-f951-4e4c-857f-fac6c0383e9b)
+
+**Result in mongodb**
+![image](https://github.com/guptaachyut15/zerodha-clone-python/assets/108484224/f50627f1-9352-439a-b8e4-17d0bb20988e)
+![image](https://github.com/guptaachyut15/zerodha-clone-python/assets/108484224/206618bd-2722-4015-acf1-bf9928935154)
 
 ## How to Run
 
