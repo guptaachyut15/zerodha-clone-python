@@ -60,6 +60,19 @@ This project initially began as a clone of Zerodha's limit order system, and has
     ```bash
     uvicorn src.main:app --reload --port 8080
     ```
+## Environment Variables
+
+Before running the Zerodha Clone, ensure you have set the following environment variables in a `.env` file at the root of your project. These variables are crucial for the proper functioning of the application.
+
+| Variable                  | Description                                                | Example Value                                      |
+|---------------------------|------------------------------------------------------------|----------------------------------------------------|
+| `MONGODB_CONNECTION_STRING`| The connection string for your MongoDB database.            | `mongodb://username:password@localhost:27017/zerodha_clone` |
+| `LOG_LEVEL`               | Specifies the logging level for the application.           | `info` (Other possible values: `debug`, `warning`, `error`, `critical`) |
+| `JWT_SECRET_KEY`          | Secret key used for JWT (JSON Web Token) generation.        | `your_secret_key_here`                             |
+| `SALT`                    | Salt value used for additional security measures.          | `your_salt_value_here`                             |
+
+Make sure to replace the placeholder values with your actual configuration. Keeping sensitive information, such as secret keys and connection strings, secure is essential for the proper and secure functioning of the application.
+
 The application should now be running locally. Access it through your web browser at http://localhost:8080.
 
 
